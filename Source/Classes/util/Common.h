@@ -14,6 +14,7 @@
 -(CCNode*)set_visible:(BOOL)visible;
 -(CCNode*)set_anchor_pt:(CGPoint)pt;
 -(CCNode*)add_to:(CCNode*)parent;
+-(CCNode*)add_to:(CCNode*)parent z:(NSInteger)z;
 @end
 
 @interface NSArray (Random)

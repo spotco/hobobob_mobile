@@ -140,7 +140,7 @@
 }
 
 +(CGPoint)player_free_fall:(id<PhysicsObject>)player islands:(NSMutableArray*)islands {
-    float GRAVITY = -0.5;
+    float GRAVITY = [player get_gravity];
     player.up_vec = vec_cons(0, 1, 0);
     
     CGPoint player_pre = player.position;

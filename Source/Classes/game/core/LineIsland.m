@@ -8,6 +8,8 @@
 @implementation LineIsland  {
 	GLRenderObject *main_fill, //main body texture fill
                   *corner_fill; //wedge main body texture between cur and next (optional)
+				
+	BOOL do_draw;
 }
 
 +(LineIsland*)cons_pt1:(CGPoint)start pt2:(CGPoint)end height:(float)height ndir:(float)ndir can_land:(BOOL)can_land {
@@ -28,17 +30,17 @@
 	self.next = NULL;
 	self.prev = NULL;
 	self.can_land = NO;
+	do_draw = NO;
 	return self;
 }
 
+-(void)update_game:(GameEngineScene *)g {
+	do_draw = hitrect_touch([g get_viewbox], [self get_hit_rect]);
+}
 
 -(void)draw:(CCRenderer *)renderer transform:(const GLKMatrix4 *)transform
 {
-    CGSize size = CGSizeMake([self get_hit_rect].x2-[self get_hit_rect].x1, [self get_hit_rect].y2-[self get_hit_rect].y1);
-    GLKVector2 center = GLKVector2Make(size.width/2.0, size.height/2.0);
-    GLKVector2 extents = GLKVector2Make(size.width/2.0, size.height/2.0);
-	
-	//if (CCRenderCheckVisbility(transform, center, extents))
+	if (do_draw)
 	{
         render_object_draw(renderer, self.renderState, transform, main_fill);
 		if (corner_fill != NULL) render_object_draw(renderer, self.renderState, transform, corner_fill);

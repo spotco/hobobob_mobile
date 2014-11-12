@@ -1,15 +1,25 @@
 {
-    "objects": [],
+    "start_x": 752.9,
     "islands": [
-        {"ndir": "left", "can_fall": true, "x1": 100, "hei": 50, "y1": 197, "ground": "open", "x2": 648, "y2": 199, "type": "line"},
-        {"ndir": "left", "can_fall": true, "x1": 648, "hei": 50, "y1": 199, "ground": "open", "x2": 749, "y2": 301, "type": "line"},
-        {"ndir": "left", "can_fall": true, "x1": 749, "hei": 50, "y1": 301, "ground": "open", "x2": 751, "y2": 498, "type": "line"},
-        {"ndir": "left", "can_fall": true, "x1": 751, "hei": 50, "y1": 498, "ground": "open", "x2": 654, "y2": 553, "type": "line"},
-        {"ndir": "left", "can_fall": true, "x1": 654, "hei": 50, "y1": 553, "ground": "open", "x2": 502, "y2": 550, "type": "line"},
-        {"ndir": "left", "can_fall": true, "x1": 502, "hei": 50, "y1": 550, "ground": "open", "x2": 402, "y2": 455, "type": "line"}
+        {"type": "line", "can_fall": true, "x2": 1160, "ground": "open", "hei": 500, "y2": 311.4, "x1": 355.7, "ndir": "left", "y1": 308.6},
+        {"type": "line", "can_fall": true, "x2": 1191.5, "ground": "open", "hei": 500, "y2": 317.1, "x1": 1160, "ndir": "left", "y1": 311.4},
+        {"type": "line", "can_fall": true, "x2": 1208.6, "ground": "open", "hei": 500, "y2": 337.1, "x1": 1191.5, "ndir": "left", "y1": 317.1},
+        {"type": "line", "can_fall": true, "x2": 1212.9, "ground": "open", "hei": 500, "y2": 365.7, "x1": 1208.6, "ndir": "left", "y1": 337.1},
+        {"type": "line", "can_fall": true, "x2": 1222.9, "ground": "open", "hei": 500, "y2": 974.3, "x1": 1212.9, "ndir": "left", "y1": 365.7},
+        {"type": "line", "can_fall": true, "x2": 1205.7, "ground": "open", "hei": 500, "y2": 1008.6, "x1": 1222.9, "ndir": "left", "y1": 974.3},
+        {"type": "line", "can_fall": true, "x2": 1182.9, "ground": "open", "hei": 500, "y2": 1018.6, "x1": 1205.7, "ndir": "left", "y1": 1008.6},
+        {"type": "line", "can_fall": true, "x2": 1142.9, "ground": "open", "hei": 500, "y2": 1027.1, "x1": 1182.9, "ndir": "left", "y1": 1018.6},
+        {"type": "line", "can_fall": true, "x2": 377.2, "ground": "open", "hei": 500, "y2": 1030, "x1": 1142.9, "ndir": "left", "y1": 1027.1},
+        {"type": "line", "can_fall": true, "x2": 342.9, "ground": "open", "hei": 500, "y2": 1017.1, "x1": 377.2, "ndir": "left", "y1": 1030},
+        {"type": "line", "can_fall": true, "x2": 318.6, "ground": "open", "hei": 500, "y2": 991.4, "x1": 342.9, "ndir": "left", "y1": 1017.1},
+        {"type": "line", "can_fall": true, "x2": 308.6, "ground": "open", "hei": 500, "y2": 960, "x1": 318.6, "ndir": "left", "y1": 991.4},
+        {"type": "line", "can_fall": true, "x2": 308.6, "ground": "open", "hei": 500, "y2": 380, "x1": 308.6, "ndir": "left", "y1": 960},
+        {"type": "line", "can_fall": true, "x2": 315.7, "ground": "open", "hei": 500, "y2": 354.3, "x1": 308.6, "ndir": "left", "y1": 380},
+        {"type": "line", "can_fall": true, "x2": 328.6, "ground": "open", "hei": 500, "y2": 328.6, "x1": 315.7, "ndir": "left", "y1": 354.3},
+        {"type": "line", "can_fall": true, "x2": 355.7, "ground": "open", "hei": 500, "y2": 308.6, "x1": 328.6, "ndir": "left", "y1": 328.6}
     ],
-    "connect_pts": {"x2": 751, "x1": 100, "y2": 498, "y1": 197},
-    "start_y": 249,
-    "assert_links": 5,
-    "start_x": 152
+    "objects": [],
+    "assert_links": 16,
+    "start_y": 354.32142857142856,
+    "connect_pts": {"y2": 974.3, "x1": 308.6, "x2": 1222.9, "y1": 960}
 }

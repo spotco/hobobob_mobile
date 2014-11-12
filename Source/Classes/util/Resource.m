@@ -46,7 +46,10 @@ static NSSet* dont_load;
 	 TEX_BLANK:@"blank.png",
 	 TEX_PARTICLES:@"particles.png",
 	 TEX_HOBO_BOB:@"hobobob.png",
-	 TEX_WAREHOUSE_GROUND_TEX:@"warehouse_groundtex.png"
+	 TEX_WAREHOUSE_GROUND_TEX:@"warehouse_groundtex.png",
+	 TEX_BACKGROUND_BUILDINGS:@"background_buildings.png",
+	 TEX_BACKGROUND_SKY:@"background_sky.png",
+	 TEX_BACKGROUND_WINDOW:@"window.png"
 	};
 	
 	

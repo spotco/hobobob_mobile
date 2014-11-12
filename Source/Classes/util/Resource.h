@@ -10,4 +10,8 @@
 #define TEX_BLANK @"blank"
 #define TEX_HOBO_BOB @"hobobob"
 
+#define TEX_BACKGROUND_BUILDINGS @"background_buildings"
+#define TEX_BACKGROUND_SKY @"background_sky"
+#define TEX_BACKGROUND_WINDOW @"background_window"
+
 @end

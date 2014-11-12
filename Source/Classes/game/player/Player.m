@@ -2,6 +2,7 @@
 #import "Common.h"
 #import "Resource.h"
 #import "FileCache.h"
+#import "GameEngineScene.h"
 
 #import "CCTexture_Private.h"
 
@@ -17,8 +18,11 @@
 @synthesize up_vec;
 @synthesize last_ndir,movedir;
 
--(int)get_speed {
-	return 10;
+-(float)get_speed {
+	return 15;
+}
+-(float)get_gravity {
+	return -1;
 }
 
 +(Player*)cons {
@@ -38,16 +42,27 @@
 	return self;
 }
 
+-(void)update_game:(GameEngineScene*)g {
+	if (current_island != NULL) {
+		[self run_anim:_anim_run];
+	}
+}
+
+-(void)jump_anim {
+	[self run_anim:_anim_jump];
+}
+
 -(void)run_anim:(CCAction*)tar {
 	if (_current_anim != tar) {
 		_current_anim = tar;
+		[_img stopAllActions];
 		[_img runAction:_current_anim];
 	}
 }
 
 -(void)cons_anims {
 	_anim_stand = animaction_cons(@[
-		@"win0005.png"
+		@"jump0006.png"
 	], 0.1, TEX_HOBO_BOB);
 	
 	_anim_run = animaction_cons(@[
@@ -60,7 +75,7 @@
 		@"running0007.png",
 	], 0.025, TEX_HOBO_BOB);
 	
-	_anim_jump = animaction_cons(@[
+	_anim_jump = animaction_nonrepeating_cons(@[
 		@"jump0001.png",
 		@"jump0002.png",
 		@"jump0003.png",

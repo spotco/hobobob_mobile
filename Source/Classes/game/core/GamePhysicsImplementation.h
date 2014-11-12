@@ -9,7 +9,8 @@
     @property(readwrite,assign) CGPoint position;
 
 	@property(readwrite,strong) Island* current_island;
-    -(int)get_speed;
+    -(float)get_speed;
+	-(float)get_gravity;
 @end
 
 @interface GamePhysicsImplementation:NSObject

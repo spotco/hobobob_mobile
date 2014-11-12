@@ -64,7 +64,10 @@
 	return self;
 }
 -(CCNode*)add_to:(CCNode*)parent {
-	[parent addChild:self];
+	return [self add_to:parent z:0];
+}
+-(CCNode*)add_to:(CCNode*)parent z:(NSInteger)z {
+	[parent addChild:self z:z];
 	return self;
 }
 @end
@@ -199,7 +202,7 @@ float dt_scale_get() {
 }
 
 CGSize game_screen() {
-    return CGSizeMake([[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
+    return [CCDirector sharedDirector].viewSize;
 }
 
 CGPoint game_screen_pct(float pctwid, float pcthei) {
@@ -317,7 +320,7 @@ GLRenderObject* render_object_cons(CCTexture* tex, int npts) {
 }
 
 void render_object_draw(CCRenderer* renderer, CCRenderState *renderState, const GLKMatrix4 *transform, GLRenderObject *obj) {
-	CCRenderBuffer buffer = [renderer enqueueTriangles:2 andVertexes:4 withState:renderState globalSortOrder:0];
+	CCRenderBuffer buffer = [renderer enqueueTriangles:obj.pts/2 andVertexes:obj.pts withState:renderState globalSortOrder:0];
 	for (int i = 0; i < obj.pts; i++) {
 		CCVertex vert;
 		vert.position = GLKVector4Make(obj.tri_pts[i].x, obj.tri_pts[i].y, 0, 1);
@@ -326,7 +329,7 @@ void render_object_draw(CCRenderer* renderer, CCRenderState *renderState, const 
 		CCRenderBufferSetVertex(buffer, i, CCVertexApplyTransform(vert, transform));
 	}
 	CCRenderBufferSetTriangle(buffer, 0, 0, 1, 2);
-	CCRenderBufferSetTriangle(buffer, 1, 1, 2, 3);
+	if (obj.pts == 4) CCRenderBufferSetTriangle(buffer, 1, 1, 2, 3);
 }
 
 void render_object_tex_map_to_tri_loc(GLRenderObject *o, int len) {

@@ -77,12 +77,12 @@
         float t_final = t+mov_speed;
         position_final = [i get_position_given_t:t_final];
         
-        if (position_final.x == [Island NO_VALUE] || position_final.y == [Island NO_VALUE]) {
+        if (position_final.x == SEG_NO_VALUE() || position_final.y == SEG_NO_VALUE()) {
             if (i.next != NULL) {
                 float t_sum = mov_speed;
                 t_sum -= [i get_t_given_position:ccp(i.endX,i.endY)] - t;
                 player.current_island = i.next;
-                if ([player.current_island get_position_given_t:t_sum].x != [Island NO_VALUE] && [player.current_island get_position_given_t:t_sum].y != [Island NO_VALUE]) {
+                if ([player.current_island get_position_given_t:t_sum].x != SEG_NO_VALUE() && [player.current_island get_position_given_t:t_sum].y != SEG_NO_VALUE()) {
                     position_final = [player.current_island get_position_given_t:t_sum];
                 } else {
                     position_final = ccp(player.current_island.endX,player.current_island.endY);
@@ -158,8 +158,8 @@
         Vec3D inormal_vec = [i get_normal_vec];
         if (
 			i.can_land &&
-			intersection.x != [Island NO_VALUE] &&
-			intersection.y != [Island NO_VALUE] &&
+			intersection.x != SEG_NO_VALUE() &&
+			intersection.y != SEG_NO_VALUE() &&
 			ABS(vec_rad_angle_between(player_mov_vec, inormal_vec)) >= M_PI / 2
 		) {
             contact_island = i;

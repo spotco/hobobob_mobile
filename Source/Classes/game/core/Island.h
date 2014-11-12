@@ -11,7 +11,6 @@
 @property(readwrite,strong) Island *next, *prev;
 @property(readwrite,assign) BOOL can_land;
 
-+(float) NO_VALUE;
 +(int)link_islands:(NSMutableArray*)islands;
 
 -(void)link_finish;

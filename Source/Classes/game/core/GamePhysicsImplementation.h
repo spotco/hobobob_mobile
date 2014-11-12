@@ -6,7 +6,6 @@
     @property(readwrite,assign) float vx,vy,scaleX,scaleY,rotation;
     @property(readwrite,assign) int last_ndir, movedir;
     @property(readwrite,assign) Vec3D up_vec;
-    @property(readwrite,assign) BOOL floating;
     @property(readwrite,assign) CGPoint position;
 
 	@property(readwrite,strong) Island* current_island;

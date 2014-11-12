@@ -3,16 +3,11 @@
 #import "Common.h"
 #import "Vec3D.h"
 #import "Resource.h"
+#import "CCTexture_Private.h"
 
 @implementation LineIsland  {
-    BOOL do_draw;
-    
 	GLRenderObject *main_fill, //main body texture fill
                   *corner_fill; //wedge main body texture between cur and next (optional)
-    HitRect cache_hitrect;
-    
-    BOOL has_gen_hitrect;
-    BOOL has_transformed_renderpts;
 }
 
 +(LineIsland*)cons_pt1:(CGPoint)start pt2:(CGPoint)end height:(float)height ndir:(float)ndir can_land:(BOOL)can_land {
@@ -21,8 +16,8 @@
     new_island.self.ndir = ndir;
 	[new_island set_pt1:start pt2:end];
 	new_island.anchorPoint = ccp(0,0);
-	new_island.position = ccp(new_island.startX,new_island.startY);
-    new_island.can_land = can_land;
+	new_island.position = CGPointZero;
+	new_island.can_land = can_land;
 	[new_island cons_tex];
 	
 	return new_island;
@@ -30,16 +25,10 @@
 
 -(id)init {
 	self = [super init];
-	has_gen_hitrect = NO;
-	has_transformed_renderpts = NO;
 	self.next = NULL;
 	self.prev = NULL;
 	self.can_land = NO;
 	return self;
-}
-
--(void)check_should_render:(GameEngineScene *)g {
-	do_draw = YES;
 }
 
 
@@ -49,40 +38,33 @@
     GLKVector2 center = GLKVector2Make(size.width/2.0, size.height/2.0);
     GLKVector2 extents = GLKVector2Make(size.width/2.0, size.height/2.0);
 	
-	if (CCRenderCheckVisbility(transform, center, extents))
+	//if (CCRenderCheckVisbility(transform, center, extents))
 	{
-        CCRenderBuffer buffer = [renderer enqueueTriangles:2 andVertexes:4 withState:self.renderState globalSortOrder:0];
-		for (int i = 0; i < main_fill.pts; i++) {
-			CCVertex vert;
-			vert.position = GLKVector4Make(main_fill.tri_pts[i].x, main_fill.tri_pts[i].y, 0, 1);
-			vert.texCoord1 = GLKVector2Make(main_fill.tex_pts[i].x, main_fill.tex_pts[i].y);
-			vert.color = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
-			CCRenderBufferSetVertex(buffer, i, CCVertexApplyTransform(vert, transform));
-		}
-		CCRenderBufferSetTriangle(buffer, 0, 0, 1, 2);
-		CCRenderBufferSetTriangle(buffer, 1, 1, 2, 3);
+        render_object_draw(renderer, self.renderState, transform, main_fill);
+		if (corner_fill != NULL) render_object_draw(renderer, self.renderState, transform, corner_fill);
 	}
 }
 
 -(HitRect)get_hit_rect {
-    if (has_gen_hitrect == NO) {
-        has_gen_hitrect = YES;
-        int x_max = main_fill.tri_pts[0].x;
-        int x_min = main_fill.tri_pts[0].x;
-        int y_max = main_fill.tri_pts[0].y;
-        int y_min = main_fill.tri_pts[0].y;
-        for (int i = 0; i < 4; i++) {
-            x_max = MAX(main_fill.tri_pts[i].x,x_max);
-            x_min = MIN(main_fill.tri_pts[i].x,x_min);
-            y_max = MAX(main_fill.tri_pts[i].y,y_max);
-            y_min = MIN(main_fill.tri_pts[i].y,y_min);
-        }
-        cache_hitrect = hitrect_cons_x1y1_x2y2(x_min, y_min, x_max, y_max);
-    }
-    return cache_hitrect;
+	int x_max = main_fill.tri_pts[0].x;
+	int x_min = main_fill.tri_pts[0].x;
+	int y_max = main_fill.tri_pts[0].y;
+	int y_min = main_fill.tri_pts[0].y;
+	for (int i = 0; i < 4; i++) {
+		x_max = MAX(main_fill.tri_pts[i].x,x_max);
+		x_min = MIN(main_fill.tri_pts[i].x,x_min);
+		y_max = MAX(main_fill.tri_pts[i].y,y_max);
+		y_min = MIN(main_fill.tri_pts[i].y,y_min);
+	}
+	return hitrect_cons_x1y1_x2y2(x_min, y_min, x_max, y_max);
 }
 
--(CCTexture*)get_tex_fill { return [Resource get_tex:TEX_WAREHOUSE_GROUND_TEX]; }
+-(CCTexture*)get_tex_fill {
+	CCTexture *rtv = [Resource get_tex:TEX_WAREHOUSE_GROUND_TEX];
+	ccTexParams par = {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
+	[rtv setTexParameters:&par];
+	return rtv;
+}
 
 -(void)cons_tex {
 	[self setTexture:[self get_tex_fill]];
@@ -113,6 +95,7 @@
         main_fill.tex_pts[i] = fccp(( main_fill.tri_pts[i].x+self.startX)/main_fill.texture.pixelWidth,
                                    ( main_fill.tri_pts[i].y+self.startY)/main_fill.texture.pixelHeight);
     }
+	render_object_transform(main_fill, ccp(self.startX,self.startY));
 }
 
 
@@ -120,14 +103,7 @@
 -(void)link_finish {
     if (self.next != NULL) {
         [self cons_corner_tex];
-		render_object_transform(corner_fill, [self position]);
     }
-    
-    if (!has_transformed_renderpts) {
-        has_transformed_renderpts = YES;
-		render_object_transform(main_fill, [self position]);
-    }
-    
 }
 
 -(void)cons_corner_tex {
@@ -177,6 +153,8 @@
         (corner_fill.tri_pts[2].x - corner_fill.tri_pts[1].x)/corner_fill.texture.pixelWidth + corner_fill.tex_pts[1].x,
         (corner_fill.tri_pts[2].y - corner_fill.tri_pts[1].y)/corner_fill.texture.pixelHeight + corner_fill.tex_pts[1].y
     );
+	
+	render_object_transform(corner_fill, ccp(self.startX,self.startY));
 }
 
 

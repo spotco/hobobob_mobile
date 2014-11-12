@@ -2,12 +2,6 @@
 
 @implementation Island
 
-static float NO_VAL = FLT_MAX;
-
-+(float) NO_VALUE {
-    return NO_VAL;
-}
-
 @synthesize startX, startY, endX, endY, ndir, t_min, t_max;
 @synthesize next,prev;
 @synthesize can_land;
@@ -20,7 +14,7 @@ static float NO_VAL = FLT_MAX;
         }
         
         for(Island *j in islands) {
-            if (fuzzyeq(i.endX, i.endY, 0.1) && fuzzyeq(j.startX, j.startY, 0.1)) {
+            if (fuzzyeq(i.endX, j.startX, 0.1) && fuzzyeq(i.endY, j.startY, 0.1)) {
                 i.next = j;
                 j.prev = i;
                 ct++;
@@ -75,7 +69,7 @@ static float NO_VAL = FLT_MAX;
 
 -(CGPoint)get_position_given_t:(float)t {
     if (t > t_max || t < t_min) {
-        return ccp([Island NO_VALUE],[Island NO_VALUE]);
+        return ccp(SEG_NO_VALUE(),SEG_NO_VALUE());
     } else {
         float frac = t/t_max;
         Vec3D dir_vec = vec_cons(endX-startX, endY-startY, 0);

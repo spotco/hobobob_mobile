@@ -172,7 +172,7 @@ CC_RADIANS_TO_DEGREES(const float angle)
 extern CGFloat __ccContentScaleFactor;
 
 /// Deprecated in favor of using CCDirector.contentScaleFactor or CCTexture2D.contentScale depending on usage.
-static inline CGFloat DEPRECATED_ATTRIBUTE
+static inline CGFloat
 CC_CONTENT_SCALE_FACTOR()
 {
 	return __ccContentScaleFactor;

@@ -1,0 +1,15 @@
+{
+    "objects": [],
+    "islands": [
+        {"ndir": "left", "can_fall": true, "x1": 100, "hei": 50, "y1": 197, "ground": "open", "x2": 648, "y2": 199, "type": "line"},
+        {"ndir": "left", "can_fall": true, "x1": 648, "hei": 50, "y1": 199, "ground": "open", "x2": 749, "y2": 301, "type": "line"},
+        {"ndir": "left", "can_fall": true, "x1": 749, "hei": 50, "y1": 301, "ground": "open", "x2": 751, "y2": 498, "type": "line"},
+        {"ndir": "left", "can_fall": true, "x1": 751, "hei": 50, "y1": 498, "ground": "open", "x2": 654, "y2": 553, "type": "line"},
+        {"ndir": "left", "can_fall": true, "x1": 654, "hei": 50, "y1": 553, "ground": "open", "x2": 502, "y2": 550, "type": "line"},
+        {"ndir": "left", "can_fall": true, "x1": 502, "hei": 50, "y1": 550, "ground": "open", "x2": 402, "y2": 455, "type": "line"}
+    ],
+    "connect_pts": {"x2": 751, "x1": 100, "y2": 498, "y1": 197},
+    "start_y": 249,
+    "assert_links": 5,
+    "start_x": 152
+}

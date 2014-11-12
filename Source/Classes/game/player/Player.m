@@ -11,6 +11,16 @@
 	
 	CCSprite *_img;
 }
+
+@synthesize vx,vy;
+@synthesize current_island;
+@synthesize up_vec;
+@synthesize last_ndir,movedir;
+
+-(int)get_speed {
+	return 10;
+}
+
 +(Player*)cons {
 	return [Player node];
 }
@@ -22,6 +32,9 @@
 	[self cons_anims];
 	[self run_anim:_anim_run];
 	[self set_scale:2];
+	
+	self.movedir = 1;
+	
 	return self;
 }
 

@@ -25,6 +25,7 @@
 
 @interface NSMutableArray (Shuffle)
 	-(void)shuffle;
+	-(id)add:(id)i;
 @end
 
 @interface CallBack : NSObject
@@ -48,6 +49,7 @@ fCGPoint fCGPointMake(float x, float y);
     }
     @property(readwrite,strong) CCTexture* texture;
     @property(readwrite,assign) int isalloc,pts;
+	@property(readwrite,assign) fCGPoint transform;
     -(fCGPoint*)tri_pts;
     -(fCGPoint*)tex_pts;
 @end
@@ -97,8 +99,8 @@ float deg_to_rad(float degrees);
 float rad_to_deg(float rad);
 float shortest_dist_from_cur(float a1, float a2);
 
-inline CGPoint CGPointAdd(CGPoint a,CGPoint b);
-inline float CGPointDist(CGPoint a,CGPoint b);
+CGPoint CGPointAdd(CGPoint a,CGPoint b);
+float CGPointDist(CGPoint a,CGPoint b);
 
 void dt_set(CCTime dt);
 void dt_unset();
@@ -122,9 +124,10 @@ BOOL hitrect_touch(HitRect r1, HitRect r2);
 CGPoint line_seg_intersection_pts(CGPoint a1, CGPoint a2, CGPoint b1, CGPoint b2);
 CGPoint line_seg_intersection(line_seg a, line_seg b);
 line_seg line_seg_cons(CGPoint a, CGPoint b);
+CGFloat SEG_NO_VALUE();
 
 GLRenderObject* render_object_cons(CCTexture* tex, int npts);
-void render_object_draw(GLRenderObject* obj);
+void render_object_draw(CCRenderer* renderer, CCRenderState *renderState, const GLKMatrix4 *transform, GLRenderObject *obj);
 void render_object_tex_map_to_tri_loc(GLRenderObject *o, int len);
 void render_object_transform(GLRenderObject* o, CGPoint position);
 

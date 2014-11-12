@@ -17,6 +17,7 @@
 @implementation GLRenderObject
     @synthesize isalloc,pts;
     @synthesize texture;
+	@synthesize transform;
     -(fCGPoint*)tex_pts {return tex_pts;}
     -(fCGPoint*)tri_pts {return tri_pts;}
 @end
@@ -120,6 +121,10 @@ fCGPoint fCGPointMake(float x, float y){
 		u_int32_t j = (uint32_t)arc4random_uniform((u_int32_t)i + 1);
 		[self exchangeObjectAtIndex:j withObjectAtIndex:i];
 	}
+}
+-(id)add:(id)i {
+	[self addObject:i];
+	return i;
 }
 @end
 
@@ -238,8 +243,12 @@ BOOL hitrect_touch(HitRect r1, HitRect r2) {
              r2.y1 > r1.y2);
 }
 
+CGFloat SEG_NO_VALUE() {
+	return -99999.995;
+}
+
 CGPoint line_seg_intersection_pts(CGPoint a1, CGPoint a2, CGPoint b1, CGPoint b2) {
-	CGPoint null_point = CGPointMake(DBL_MAX,DBL_MAX);
+	CGPoint null_point = CGPointMake(SEG_NO_VALUE(),SEG_NO_VALUE());
     double Ax = a1.x; double Ay = a1.y;
 	double Bx = a2.x; double By = a2.y;
 	double Cx = b1.x; double Cy = b1.y;
@@ -268,7 +277,7 @@ CGPoint line_seg_intersection_pts(CGPoint a1, CGPoint a2, CGPoint b1, CGPoint b2
 	ABpos=Dx+(Cx-Dx)*Dy/(Dy-Cy);//Discover the position of the intersection point along line A-B.
 	
     
-	if (ABpos<0. || /*ABpos>distAB*/ fuzzyeq(ABpos, distAB, 0.001)) {
+	if (ABpos<0. || ABpos-distAB> 0.001) {
         return null_point;//  Fail if segment C-D crosses line A-B outside of segment A-B.
 	}
         
@@ -307,24 +316,18 @@ GLRenderObject* render_object_cons(CCTexture* tex, int npts) {
     return n;
 }
 
-void render_object_draw(GLRenderObject* obj) {
+void render_object_draw(CCRenderer* renderer, CCRenderState *renderState, const GLKMatrix4 *transform, GLRenderObject *obj) {
+	CCRenderBuffer buffer = [renderer enqueueTriangles:2 andVertexes:4 withState:renderState globalSortOrder:0];
+	for (int i = 0; i < obj.pts; i++) {
+		CCVertex vert;
+		vert.position = GLKVector4Make(obj.tri_pts[i].x, obj.tri_pts[i].y, 0, 1);
+		vert.texCoord1 = GLKVector2Make(obj.tex_pts[i].x, obj.tex_pts[i].y);
+		vert.color = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
+		CCRenderBufferSetVertex(buffer, i, CCVertexApplyTransform(vert, transform));
+	}
+	CCRenderBufferSetTriangle(buffer, 0, 0, 1, 2);
+	CCRenderBufferSetTriangle(buffer, 1, 1, 2, 3);
 }
-/*
-void render_object_draw(GLRenderObject* obj) {
-	CCGLProgram *prog = [[CCShaderCache sharedShaderCache] programForKey:kCCShader_PositionTexture];
-	[prog use];
-	[prog setUniformsForBuiltins];
-	
-	ccGLBindTexture2D( obj.texture.name );
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
-	glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(fCGPoint), obj.tri_pts);
-	glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(fCGPoint), obj.tex_pts);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	if (obj.pts == 4) glDrawArrays(GL_TRIANGLES, 1, 3);
-}
-*/
 
 void render_object_tex_map_to_tri_loc(GLRenderObject *o, int len) {
     for (int i = 0; i < len; i++) {
@@ -341,10 +344,11 @@ CGRect rect_from_dict(NSDictionary* dict, NSString* tar) {
 }
 
 void render_object_transform(GLRenderObject* o, CGPoint position) {
-	o.tri_pts[0] = fccp(position.x+o.tri_pts[0].x, position.y+o.tri_pts[0].y);
-	o.tri_pts[1] = fccp(position.x+o.tri_pts[1].x, position.y+o.tri_pts[1].y);
-	o.tri_pts[2] = fccp(position.x+o.tri_pts[2].x, position.y+o.tri_pts[2].y);
-	o.tri_pts[3] = fccp(position.x+o.tri_pts[3].x, position.y+o.tri_pts[3].y);
+	o.tri_pts[0] = fccp(position.x+o.tri_pts[0].x-o.transform.x, position.y+o.tri_pts[0].y-o.transform.y);
+	o.tri_pts[1] = fccp(position.x+o.tri_pts[1].x-o.transform.x, position.y+o.tri_pts[1].y-o.transform.y);
+	o.tri_pts[2] = fccp(position.x+o.tri_pts[2].x-o.transform.x, position.y+o.tri_pts[2].y-o.transform.y);
+	o.tri_pts[3] = fccp(position.x+o.tri_pts[3].x-o.transform.x, position.y+o.tri_pts[3].y-o.transform.y);
+	o.transform = ccp2fccp(position);
 }
 
 CameraZoom camerazoom_cons(float x, float y, float z) {

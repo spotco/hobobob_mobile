@@ -1,5 +1,6 @@
 #import "GameMain.h"
 #import "GameEngineScene.h"
+#import "MainMenuScene.h"
 
 #import "Resource.h"
 
@@ -7,6 +8,10 @@
 +(CCScene*)main; {
 	[Resource load_all];
 	NSLog(@"%@",cocos2dVersion());
-	return [GameEngineScene cons];
+	return [MainMenuScene cons];
+	//return [GameEngineScene cons];
+}
++(void)to_scene:(CCScene*)tar {
+	[[CCDirector sharedDirector] replaceScene:tar];
 }
 @end

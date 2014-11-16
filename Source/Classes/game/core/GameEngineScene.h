@@ -4,7 +4,7 @@
 @class Particle;
 
 @interface GameEngineScene : CCScene
-+(GameEngineScene*)cons;
++(GameEngineScene*)cons_with_map_name:(NSString*)map_name ;
 
 -(void)add_particle:(Particle*)p;
 -(void)add_gameobject:(GameObject*)o;

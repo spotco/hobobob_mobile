@@ -1583,6 +1583,8 @@ CGAffineTransformMakeRigid(CGPoint translate, CGFloat radians)
 	return [[CCDirector sharedDirector] convertToUI:worldPoint];
 }
 
+-(BOOL)fullScreenTouch { return NO; }
+
 // -----------------------------------------------------------------
 #pragma mark - touch interface
 // -----------------------------------------------------------------

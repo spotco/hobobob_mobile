@@ -3,4 +3,5 @@
 
 @interface GameMain : NSObject
 +(CCScene*)main;
++(void)to_scene:(CCScene*)tar;
 @end

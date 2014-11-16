@@ -9,4 +9,5 @@
 
 @interface MapLoader : NSObject
 +(GameMap*) load_map:(NSString *)map_file_name;
++(void)add_url_json_cache:(NSString*)url json:(NSString*)json;
 @end

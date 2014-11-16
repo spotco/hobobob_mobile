@@ -249,7 +249,7 @@
             CCNode *node = _responderList[index];
             
             // check for hit test
-            //if ([node hitTestWithWorldPos:worldTouchLocation])
+            if ([node hitTestWithWorldPos:worldTouchLocation] || [node fullScreenTouch])
             {
                 // check if node has exclusive touch
                 if (node.isExclusiveTouch)

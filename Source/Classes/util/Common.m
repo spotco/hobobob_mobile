@@ -70,6 +70,10 @@
 	[parent addChild:self z:z];
 	return self;
 }
+-(CCNode*)add_on:(CCNode*)child {
+	[self addChild:child];
+	return self;
+}
 @end
 
 @implementation NSArray (Random)
@@ -408,4 +412,10 @@ NSString* unique_id() {
 		[DataStore set_key:KEY_UUID str_value:uuid_str];
 	}
 	return [DataStore get_str_for_key:KEY_UUID];
+}
+
+CCLabelTTF* label_cons(CGPoint pos, ccColor3B color, int fontSize, NSString* str) {
+	CCLabelTTF *rtv = (CCLabelTTF*)[[CCLabelTTF labelWithString:str fontName:@"" fontSize:fontSize] set_pos:pos];
+	[rtv setColor:_CCColor(color)];
+	return rtv;
 }

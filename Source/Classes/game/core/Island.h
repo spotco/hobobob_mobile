@@ -23,5 +23,8 @@
 -(float)get_t_given_position:(CGPoint)position;
 -(CGPoint)get_position_given_t:(float)t;
 -(Vec3D)get_tangent_vec;
+-(float)get_height:(float)pos;
 
+
+-(CGPoint)interpl_line_intersection_pt1:(CGPoint)pt3 pt2:(CGPoint)pt4;
 @end

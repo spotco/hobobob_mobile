@@ -16,28 +16,34 @@
 static NSMutableDictionary* cached_json;
 
 +(void) precache_map:(NSString *)map_file_name {
-    if (cached_json == NULL) {
-        cached_json = [[NSMutableDictionary alloc] init];
-    }
-    if ([cached_json objectForKey:map_file_name]) {
-        return;
-    }
+    if (cached_json == NULL) cached_json = [[NSMutableDictionary alloc] init];
+    if ([cached_json objectForKey:map_file_name]) return;
+    
     
     NSString *islandFilePath = [[NSBundle mainBundle] pathForResource:map_file_name ofType:DOTMAP];
 	NSString *islandInputStr = [[NSString alloc] initWithContentsOfFile : islandFilePath encoding:NSUTF8StringEncoding error:NULL];
    
+	[self add_key:map_file_name value:islandInputStr];
+}
+
++(void)add_key:(NSString*)key value:(NSString*)value {
 #if 0
-	NSDictionary *j_map_data = [islandInputStr objectFromJSONString];
+	NSDictionary *j_map_data = [value objectFromJSONString];
 #else
 	NSError *e = nil;
 	NSDictionary *j_map_data = [NSJSONSerialization
-						  JSONObjectWithData:[islandInputStr dataUsingEncoding:NSUTF8StringEncoding]
+						  JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding]
 						  options: NSJSONReadingMutableContainers
 						  error: &e];
 	if (e) NSLog(@"%@",e);
 #endif
-	
-	[cached_json setValue:j_map_data forKey:map_file_name];
+	[cached_json setValue:j_map_data forKey:key];
+}
+
++(void)add_url_json_cache:(NSString*)url json:(NSString*)json {
+    if (cached_json == NULL) cached_json = [[NSMutableDictionary alloc] init];
+    if ([cached_json objectForKey:url]) return;
+	[self add_key:url value:json];
 }
 
 +(NSDictionary*)get_jsondict:(NSString *)map_file_name {

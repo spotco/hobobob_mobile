@@ -79,4 +79,22 @@
     }
 }
 
+-(float)get_height:(float)pos {
+	if (pos < startX || pos > endX) {
+		return SEG_NO_VALUE();
+	} else {
+		return startY+(pos-startX)*((endY-startY)/(endX-startX));
+	}
+}
+
+-(CGPoint)interpl_line_intersection_pt1:(CGPoint)pt3 pt2:(CGPoint)pt4 {
+	CGPoint pt1 = ccp(startX,startY);
+	CGPoint pt2 = ccp(endX,endY);
+	float denom = (pt1.x-pt2.x)*(pt3.y-pt4.y)-(pt1.y-pt2.y)*(pt3.x-pt4.x);
+	return ccp(
+		((pt1.x*pt2.y-pt1.y*pt2.x)*(pt3.x-pt4.x) - (pt1.x-pt2.x)*(pt3.x*pt4.y-pt3.y*pt4.x))/denom,
+		((pt1.x*pt2.y-pt1.y*pt2.x)*(pt3.y-pt4.y) - (pt1.y-pt2.y)*(pt3.x*pt4.y-pt3.y*pt4.x))/denom
+	);
+}
+
 @end

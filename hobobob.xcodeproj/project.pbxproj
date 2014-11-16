@@ -44,6 +44,9 @@
 		7A97910819E62F84001FFC4D /* libcocos2dAndroid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910019E62E40001FFC4D /* libcocos2dAndroid.a */; };
 		7A97911719E631C6001FFC4D /* libcocos2d-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910419E62E40001FFC4D /* libcocos2d-mac.a */; };
 		7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9790FE19E62E40001FFC4D /* libcocos2d.a */; };
+		7E1B806E1A189C330055E654 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1B806D1A189C330055E654 /* MainMenuScene.m */; };
+		7E1B80711A189F450055E654 /* TouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1B80701A189F450055E654 /* TouchButton.m */; };
+		7E1B80741A18B5FB0055E654 /* CCNode+SFGestureRecognizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1B80731A18B5FB0055E654 /* CCNode+SFGestureRecognizers.m */; };
 		7E3B0C0A1A131E8E0057869B /* GameEngineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3B0BCA1A131E8E0057869B /* GameEngineScene.m */; };
 		7E3B0C0B1A131E8E0057869B /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3B0BCC1A131E8E0057869B /* GameObject.m */; };
 		7E3B0C0C1A131E8E0057869B /* GamePhysicsImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3B0BCE1A131E8E0057869B /* GamePhysicsImplementation.m */; };
@@ -217,6 +220,12 @@
 		7A59498A19E38E4A00F65F90 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Platforms/Mac/MainMenu.xib; sourceTree = "<group>"; };
 		7AFCD5DB19E9BD9F00BCCCDA /* cocos2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocos2d.h; path = "Source/libs/cocos2d-iphone/cocos2d/cocos2d.h"; sourceTree = "<group>"; };
 		7AFCD5DD19E9BDC200BCCCDA /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Source/Bridging-Header.h"; sourceTree = "<group>"; };
+		7E1B806C1A189C330055E654 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
+		7E1B806D1A189C330055E654 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
+		7E1B806F1A189F450055E654 /* TouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchButton.h; sourceTree = "<group>"; };
+		7E1B80701A189F450055E654 /* TouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchButton.m; sourceTree = "<group>"; };
+		7E1B80721A18B5FB0055E654 /* CCNode+SFGestureRecognizers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+SFGestureRecognizers.h"; sourceTree = "<group>"; };
+		7E1B80731A18B5FB0055E654 /* CCNode+SFGestureRecognizers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+SFGestureRecognizers.m"; sourceTree = "<group>"; };
 		7E3B0BC91A131E8E0057869B /* GameEngineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEngineScene.h; sourceTree = "<group>"; };
 		7E3B0BCA1A131E8E0057869B /* GameEngineScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEngineScene.m; sourceTree = "<group>"; };
 		7E3B0BCB1A131E8E0057869B /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
@@ -515,9 +524,21 @@
 			name = Mac;
 			sourceTree = "<group>";
 		};
+		7E1B806A1A189C230055E654 /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				7E1B806C1A189C330055E654 /* MainMenuScene.h */,
+				7E1B806D1A189C330055E654 /* MainMenuScene.m */,
+				7E1B806F1A189F450055E654 /* TouchButton.h */,
+				7E1B80701A189F450055E654 /* TouchButton.m */,
+			);
+			path = menu;
+			sourceTree = "<group>";
+		};
 		7E3B0BC61A131E8E0057869B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7E1B806A1A189C230055E654 /* menu */,
 				7E3B0BC71A131E8E0057869B /* game */,
 				7E3B0BF31A131E8E0057869B /* GameMain.h */,
 				7E3B0BF41A131E8E0057869B /* GameMain.m */,
@@ -586,6 +607,8 @@
 				7E3B0C071A131E8E0057869B /* Vec3D.m */,
 				7E3B0C081A131E8E0057869B /* WebRequest.h */,
 				7E3B0C091A131E8E0057869B /* WebRequest.m */,
+				7E1B80721A18B5FB0055E654 /* CCNode+SFGestureRecognizers.h */,
+				7E1B80731A18B5FB0055E654 /* CCNode+SFGestureRecognizers.m */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -1075,7 +1098,10 @@
 				7E3B0C271A131E8E0057869B /* Vec3D.m in Sources */,
 				7E3B0C0D1A131E8E0057869B /* Island.m in Sources */,
 				7E3B0C0B1A131E8E0057869B /* GameObject.m in Sources */,
+				7E1B80741A18B5FB0055E654 /* CCNode+SFGestureRecognizers.m in Sources */,
+				7E1B80711A189F450055E654 /* TouchButton.m in Sources */,
 				7E3B0C0E1A131E8E0057869B /* LineIsland.m in Sources */,
+				7E1B806E1A189C330055E654 /* MainMenuScene.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				7E3B0C0A1A131E8E0057869B /* GameEngineScene.m in Sources */,
 				7E3B0C201A131E8E0057869B /* Common.m in Sources */,
@@ -1455,8 +1481,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pingyang He (W6R477JQ9S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pingyang He (W6R477JQ9S)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1477,7 +1503,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = hobobob;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1fa585a5-b84a-47fc-a7f0-b468a34287b8";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
@@ -1490,8 +1516,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pingyang He (W6R477JQ9S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pingyang He (W6R477JQ9S)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
@@ -1510,7 +1536,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = hobobob;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1fa585a5-b84a-47fc-a7f0-b468a34287b8";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

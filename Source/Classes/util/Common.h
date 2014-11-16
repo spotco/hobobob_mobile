@@ -15,6 +15,7 @@
 -(CCNode*)set_anchor_pt:(CGPoint)pt;
 -(CCNode*)add_to:(CCNode*)parent;
 -(CCNode*)add_to:(CCNode*)parent z:(NSInteger)z;
+-(CCNode*)add_on:(CCNode*)child;
 @end
 
 @interface NSArray (Random)
@@ -82,6 +83,7 @@ typedef struct CGRange {
 
 #define _NSSET(...)  [NSMutableSet setWithArray:@[__VA_ARGS__]]
 #define _NSMARRAY(...)  [NSMutableArray arrayWithArray:@[__VA_ARGS__]]
+#define _CCColor(x) [CCColor colorWithCcColor3b:x]
 #define NSVEnum(val,type) [NSValue value:&val withObjCType:@encode(type)]
 
 #define float_random(smallNumber, bigNumber) ((((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * (bigNumber - smallNumber)) + smallNumber)
@@ -140,4 +142,5 @@ CCAction* animaction_nonrepeating_cons(NSArray *a, float speed, NSString *tex_ke
 
 NSString* platform();
 NSString* unique_id();
+CCLabelTTF* label_cons(CGPoint pos, ccColor3B color, int fontSize, NSString* str);
 #endif

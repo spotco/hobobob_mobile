@@ -64,7 +64,7 @@
  *  Only one exclusive touch can be active at a time.
  */
 @property (nonatomic, assign, getter = isExclusiveTouch) BOOL exclusiveTouch;
-
+-(BOOL)fullScreenTouch;
 /**
  *  Expands ( or contracts ) the hit area of the node.
  *  The expansion is calculated as a margin around the sprite, in points.

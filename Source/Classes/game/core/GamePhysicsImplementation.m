@@ -44,7 +44,8 @@
     }
     
 
-    float mov_speed = sqrtf(powf(player.vx, 2) + powf(player.vy, 2)) * dt_scale_get();
+    float mov_speed = MIN_SPEED;
+	//sqrtf(powf(player.vx, 2) + powf(player.vy, 2)) * dt_scale_get();
     
     if (mov_speed > ABS_MAX_SPEED * dt_scale_get()) {
         mov_speed = ABS_MAX_SPEED;

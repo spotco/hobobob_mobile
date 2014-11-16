@@ -244,6 +244,11 @@ static NSString *const UIGestureRecognizerSFGestureRecognizersPassingDelegateKey
 
 @implementation CCNode (SFGestureRecognizers)
 
+-(id)originalSetDelegate:(id)tar { return NULL; }
+-(id)openGLView { return NULL; }
+-(id)originalDelegate { return NULL; }
+-(id)originalClass { return NULL; }
+
 #if SF_GESTURE_RECOGNIZERS_USE_SHORTHAND
 @dynamic isTouchEnabled;
 @dynamic touchRect;
@@ -395,9 +400,9 @@ static NSString *const UIGestureRecognizerSFGestureRecognizersPassingDelegateKey
     // isRunning changed to isRunningInActiveScene in cocos2d 3.0
   BOOL isRunningFlag = NO;
   if([self respondsToSelector:@selector(isRunning)]) {
-    isRunningFlag = [self performSelector:@selector(isRunning) withObject:nil];
+    isRunningFlag = (BOOL)[self performSelector:@selector(isRunning) withObject:nil];
   } else if([self respondsToSelector:@selector(isRunningInActiveScene)]) {
-    isRunningFlag = [self performSelector:@selector(isRunningInActiveScene) withObject:nil];
+    isRunningFlag = (BOOL)[self performSelector:@selector(isRunningInActiveScene) withObject:nil];
   }
   if (!self.visible || !isRunningFlag) {
     return NO;
@@ -425,7 +430,7 @@ static NSString *const UIGestureRecognizerSFGestureRecognizersPassingDelegateKey
   // isUserInteraction added to CCNode in cocos2d 3.0
   BOOL userInteractionEnabledFlag = NO;
   if([self respondsToSelector:@selector(isUserInteractionEnabled)]) {
-    userInteractionEnabledFlag = [self performSelector:@selector(isUserInteractionEnabled)];
+    userInteractionEnabledFlag = (BOOL)[self performSelector:@selector(isUserInteractionEnabled)];
   }
   if(!(self.isTouchEnabled || userInteractionEnabledFlag)) {
     return NO;

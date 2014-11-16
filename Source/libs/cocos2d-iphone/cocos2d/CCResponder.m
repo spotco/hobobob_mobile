@@ -35,9 +35,8 @@
 
 @implementation CCResponder
 {
-    
 }
-
+-(BOOL)fullScreenTouch { return NO; }
 // -----------------------------------------------------------------
 
 - (id)init

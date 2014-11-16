@@ -43,6 +43,11 @@ static NSString *const kSFGestureClassPrefix = @"sfg_";
 
 @interface CCNode (SFGestureRecognizers)
 
+-(id)originalSetDelegate:(id)tar;
+-(id)openGLView;
+-(id)originalDelegate;
+-(id)originalClass;
+
 #if SF_GESTURE_RECOGNIZERS_USE_SHORTHAND
 @property (nonatomic, assign) BOOL isTouchEnabled;
 @property (nonatomic, assign) CGRect touchRect;
